@@ -30,6 +30,9 @@
 #include <trace/events/error_report.h>
 
 #include <asm/sections.h>
+#ifdef CONFIG_TDX_FUZZ_KAFL
+#include <asm/kafl-agent.h>
+#endif
 
 #include "kasan.h"
 #include "../slab.h"
@@ -238,6 +241,10 @@ static void end_report(unsigned long *flags, const void *addr, bool is_write)
 	add_taint(TAINT_BAD_PAGE, LOCKDEP_NOW_UNRELIABLE);
 	lockdep_on();
 	report_suppress_stop();
+
+#ifdef CONFIG_TDX_FUZZ_KAFL
+	kafl_fuzz_event(KAFL_KASAN);
+#endif
 }
 
 static void print_error_description(struct kasan_report_info *info)
