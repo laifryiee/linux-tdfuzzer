@@ -2,3 +2,4 @@
 
 obj-y += tdx.o tdcall.o
 obj-$(CONFIG_TDX_FUZZ)	+= tdx-fuzz.o
+obj-$(CONFIG_TDX_FUZZ_KAFL)    += kafl-agent.o
