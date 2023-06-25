@@ -508,7 +508,7 @@ size_t kafl_fuzz_buffer(void* fuzz_buf, const void *orig_buf,
 	if (agent_flags.dump_callers) {
 		pr_warn("\nfuzz_var: %s[%ld], addr: %16lx, isr: %lx\n",
 				tdx_fuzz_loc_str[type], num_bytes, addr, in_interrupt());
-		if (type == TDX_FUZZ_PORT_IN && !tdx_allowed_port(addr)) {
+		if (type == TDX_FUZZ_PORT_IN) {
 			pr_warn("\tWarning: port %lx is outside allow-list!\n", addr);
 		}
 		dump_stack();
