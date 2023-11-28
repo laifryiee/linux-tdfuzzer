@@ -3919,20 +3919,15 @@ void printk_trigger_flush(void)
 
 int vprintk_deferred(const char *fmt, va_list args)
 {
-<<<<<<< HEAD
-	return vprintk_emit(0, LOGLEVEL_SCHED, NULL, fmt, args);
-=======
 	int r;
 
 #ifndef CONFIG_TDX_FUZZ_KAFL
 	r = vprintk_emit(0, LOGLEVEL_SCHED, NULL, fmt, args);
-	defer_console_output();
 #else
 	r = kafl_vprintk(fmt, args);
 #endif
 
 	return r;
->>>>>>> 31a41da304b9 (x86/tdx: Add KAFL agent)
 }
 
 int _printk_deferred(const char *fmt, ...)
